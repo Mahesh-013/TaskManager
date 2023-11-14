@@ -5,23 +5,34 @@ choice="""
 4) View completed
 q) Exit
 """
+def addNew():
+    date=input("Enter date in YYYY-MM-DD: ")
+    name=input("Enter the task: ")
+    status=input("Enter the statusof task 0/1: ")
+    putOne()
 
+def viewAll():
+    data=getAll()
 
+def viewFuture():
+    data=getAll_Future()
+
+def viewCompleted():
+    data=getAll_Over()
 
 while ip:=input()!='q':
     if ip=='1':
-        putOne()
+        addNew()
 
     elif ip=='2':
-        getAll()
+        viewAll()
 
     elif ip=='3':
-        getAll_Future()
+        viewFuture()
 
     elif ip=='4':
-        getAll_Over()
+        viewCompleted()
 
     else:
         print("Quiting!")
         break
-
