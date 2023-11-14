@@ -8,4 +8,12 @@ CREATE TABLE IF NOT EXISTS task_tables(
 """
 
 INSERT_TASK="INSERT INTO task_tables( task_name, end_date, status ) VALUES(%s, %s, %s)"
-SELECT_ALL_TASK="SELECT * FROM task_tables"
+SELECT_ALL_TASKS="SELECT * FROM task_tables"
+SELECT_COMPLETED="SELECT * FROM task_tables WHERE status=0"
+SELECT_IN_PROGRESS="SELECT * FROM task_tables WHERE status=1"
+SELECT_FUTURE_TASKS="SELECT * FROM task_tables WHERE status=2"
+SELECT_SORTED="""
+SELECT * FROM task_tables
+ORDER BY status, task_id
+"""
+SELECT_DEADLINE_TASK="SELECT * FROM task_tables WHERE end_date < %s AND status != 0"

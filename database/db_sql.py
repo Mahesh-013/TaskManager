@@ -1,4 +1,5 @@
-from database.queries import CREATE_TASK_TABLE, INSERT_TASK, SELECT_ALL_TASK
+from database.queries import CREATE_TASK_TABLE, INSERT_TASK
+from database.queries import SELECT_ALL_TASKS, SELECT_COMPLETED, SELECT_IN_PROGRESS, SELECT_FUTURE_TASKS, SELECT_SORTED, SELECT_DEADLINE_TASK
 import datetime
 import os
 import psycopg2
@@ -27,11 +28,36 @@ def putOne(name, date, status):
 def getAll():
     with conn:
         with conn.cursor() as cursor:
-            cursor.execute(SELECT_ALL_TASK)
+            cursor.execute(SELECT_ALL_TASKS)
+            return cursor.fetchall()
+
+def getOver():
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(SELECT_COMPLETED)
+            return cursor.fetchall()
+
+def getInProgress():
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(SELECT_IN_PROGRESS)
             return cursor.fetchall()
 
 def getFuture():
-    pass
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(SELECT_FUTURE_TASKS)
+            return cursor.fetchall()
 
-def getOver():
-    pass
+def getSorted():
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(SELECT_SORTED)
+            return cursor.fetchall()
+
+def getDeadlineExceed():
+    today=datetime.date.today()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(SELECT_DEADLINE_TASK, (today, ))
+            return (cursor.fetchall(), today)
