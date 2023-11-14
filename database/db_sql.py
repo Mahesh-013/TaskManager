@@ -1,5 +1,5 @@
 from database.queries import CREATE_TASK_TABLE, INSERT_TASK
-from database.queries import SELECT_ALL_TASKS, SELECT_COMPLETED, SELECT_IN_PROGRESS, SELECT_FUTURE_TASKS, SELECT_SORTED, SELECT_DEADLINE_TASK
+from database.queries import SELECT_ALL_TASKS, SELECT_COMPLETED, SELECT_IN_PROGRESS, SELECT_FUTURE_TASKS, SELECT_SORTED, SELECT_DEADLINE_TASK, SELECT_BY_DATE
 import datetime
 import os
 import psycopg2
@@ -10,6 +10,8 @@ load_dotenv()
 conn = psycopg2.connect(os.environ["DB_URL"])
 if conn!=None:
     print("\nDB Connected Successfully!")
+
+today=datetime.date.today()
 
 def createTable():
     with conn:
@@ -56,8 +58,13 @@ def getSorted():
             return cursor.fetchall()
 
 def getDeadlineExceed():
-    today=datetime.date.today()
     with conn:
         with conn.cursor() as cursor:
             cursor.execute(SELECT_DEADLINE_TASK, (today, ))
             return (cursor.fetchall(), today)
+
+def getByDate(date):
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(SELECT_BY_DATE, (today, date))
+            return cursor.fetchall()

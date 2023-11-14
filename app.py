@@ -4,13 +4,14 @@ print("Welcome to Task Manager!\nApp started!")
 choice="""
 
 1) Enter a new Task
+   View task by id
 2) View all tasks
 3) View completed
 4) View tasks in progress
 5) View future tasks
 6) View Sorted task data
 7) View task beyond deadline
-8) View task today
+8) View by date (>= today)
 ) Update task status
 ) Delete a task 
 ) Clean List
@@ -39,6 +40,9 @@ while (ip:=input(choice))!='q':
 
     elif ip=='7':
         viewDeadBeyond()
+    
+    elif ip=='8':
+        viewByDate()
 
     else:
         print("Quiting Unexpected Input!")

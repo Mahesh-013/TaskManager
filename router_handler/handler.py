@@ -1,4 +1,5 @@
-from database.db_sql import createTable, putOne, getAll, getOver, getInProgress, getFuture, getSorted, getDeadlineExceed
+from database.db_sql import createTable, putOne, getAll, getOver, getInProgress, getFuture, getSorted, getDeadlineExceed, getByDate
+from datetime import datetime, date
 
 createTable()
 
@@ -75,3 +76,20 @@ def viewDeadBeyond():
     else:
         print("\nThere is no task beyond deadline!\n")
 
+def viewByDate():
+    user_date=input("Enter deadline date limit YYYY-MM-DD: ")
+    user_date=datetime.strptime(user_date, "%Y-%m-%d").date()
+    if user_date < date.today():
+        print("Date must be greater than or equal to today!")
+        return
+
+    tasks=getByDate(user_date)
+    if len(tasks)!=0:
+        print("\nTASK_ID", "TASK_LIST", "TASK_DEADLINE", "TASK_STATUS\n", sep="\t\t\t")
+        for task in tasks:
+            status=task[3]
+            status="Completed" if status==0 else("In Progress" if status==1 else "Yet to")
+            print("  ", task[0], "\t\t ", task[1], "\t\t", task[2],"\t\t\t  ",  status)
+    else:
+        print("\nThere is no task currently in the DB!\n")
+    
