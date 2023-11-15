@@ -20,3 +20,5 @@ ORDER BY status, task_id
 SELECT_DEADLINE_TASK="SELECT * FROM task_tables WHERE end_date < %s AND status != 0"
 SELECT_BY_DATE="SELECT * FROM task_tables WHERE end_date BETWEEN %s AND %s"
 DELETE_ONE="DELETE FROM task_tables WHERE task_id=%s"
+
+DROP_TABLE="DROP TABLE IF EXISTS task_tables"

@@ -108,7 +108,15 @@ def removeTask():
     id_ip=input("Enter the task id to delete: ")
     confirm=input("Are you sure you want to delete the task ? (y/n)")
     if confirm in ('y', 'Y'):
-        task=delOne(id_ip)
+        delOne(id_ip)
         print("Task deleted successfully!")
+    else:
+        print("Delete operation cancelled!")
+
+def removeAll():
+    confirm=input("Are you sure you want to remove all tasks ? (y/n): ")
+    if confirm in ('y','Y'):
+        delAll()
+        print("All Task deleted successfully!")
     else:
         print("Delete operation cancelled!")

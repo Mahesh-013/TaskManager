@@ -79,3 +79,9 @@ def delOne(task_id):
     with conn:
         with conn.cursor() as cursor:
             cursor.execute(DELETE_ONE, (task_id, ))
+
+def delAll():
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(DROP_TABLE)
+            

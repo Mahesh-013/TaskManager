@@ -46,8 +46,14 @@ def routeReq():
         elif ip=='9':
             viewByDate()
 
+        elif ip=='10':
+            pass
+
         elif ip=='11':
             removeTask()
+
+        elif ip=='12':
+            removeAll()
 
         else:
             print("Quiting Unexpected Input!")
