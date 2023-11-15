@@ -3,17 +3,17 @@ from handler.handler import *
 choice="""
 
 1) Enter a new Task
-   View task by id
-2) View all tasks
-3) View completed
-4) View tasks in progress
-5) View future tasks
-6) View Sorted task data
-7) View task beyond deadline
-8) View by date (>= today)
-) Update task status
-) Delete a task 
-) Clean List
+2) View task by id
+3) View all tasks
+4) View completed
+5) View tasks in progress
+6) View future tasks
+7) View Sorted task data
+8) View task beyond deadline
+9) View by date (>= today)
+10) Update task status
+11) Delete a task 
+12) Clean Entire List
 q) Exit
 
 """
@@ -23,25 +23,31 @@ def routeReq():
             addNew()
 
         elif ip=='2':
-            viewAll()
+            viewOne()
 
         elif ip=='3':
-            viewCompleted()
+            viewAll()
 
         elif ip=='4':
-            viewInProgress()
+            viewCompleted()
 
         elif ip=='5':
+            viewInProgress()
+
+        elif ip=='6':
             viewFuture()
 
-        elif ip=="6":
+        elif ip=="7":
             viewSorted()
 
-        elif ip=='7':
+        elif ip=='8':
             viewDeadBeyond()
         
-        elif ip=='8':
+        elif ip=='9':
             viewByDate()
+
+        elif ip=='11':
+            removeTask()
 
         else:
             print("Quiting Unexpected Input!")
