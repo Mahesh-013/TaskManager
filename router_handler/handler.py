@@ -80,7 +80,7 @@ def viewByDate():
     user_date=input("Enter deadline date limit YYYY-MM-DD: ")
     user_date=datetime.strptime(user_date, "%Y-%m-%d").date()
     if user_date < date.today():
-        print("Date must be greater than or equal to today!")
+        print("\nDate must be greater than or equal to today!\n")
         return
 
     tasks=getByDate(user_date)
@@ -91,5 +91,5 @@ def viewByDate():
             status="Completed" if status==0 else("In Progress" if status==1 else "Yet to")
             print("  ", task[0], "\t\t ", task[1], "\t\t", task[2],"\t\t\t  ",  status)
     else:
-        print("\nThere is no task currently in the DB!\n")
+        print("\nThere is no task in the specified date range!\n")
     
