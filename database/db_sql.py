@@ -1,5 +1,4 @@
-from database.queries import CREATE_TASK_TABLE, INSERT_TASK
-from database.queries import SELECT_ALL_TASKS, SELECT_COMPLETED, SELECT_IN_PROGRESS, SELECT_FUTURE_TASKS, SELECT_SORTED, SELECT_DEADLINE_TASK, SELECT_BY_DATE
+from database.queries import *
 import datetime
 import os
 import psycopg2
@@ -26,6 +25,13 @@ def putOne(name, date, status):
                 print("\nData inserted Successfully!\n")
             except:
                 print("\nEnter valid date!\n")
+
+def getOne(task_id):
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(SELECT_ONE, (task_id, ))
+            return cursor.fetchone()
+
 
 def getAll():
     with conn:
@@ -68,3 +74,8 @@ def getByDate(date):
         with conn.cursor() as cursor:
             cursor.execute(SELECT_BY_DATE, (today, date))
             return cursor.fetchall()
+
+def delOne(task_id):
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(DELETE_ONE, (task_id, ))

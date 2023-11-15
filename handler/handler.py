@@ -1,4 +1,4 @@
-from database.db_sql import createTable, putOne, getAll, getOver, getInProgress, getFuture, getSorted, getDeadlineExceed, getByDate
+from database.db_sql import *
 from datetime import datetime, date
 
 createTable()
@@ -14,6 +14,17 @@ def addNew():
         print("\nEnter Valid Status!\n")
         addNew()
         return
+
+def viewOne():
+    id_ip=input("Enter the task id: ")
+    task=getOne(id_ip)
+    if len(task)!=0:
+        print("\nTASK_ID", "TASK_LIST", "TASK_DEADLINE", "TASK_STATUS\n", sep="\t\t\t")
+        status=task[3]
+        status="Completed" if status==0 else("In Progress" if status==1 else "Yet to")
+        print("  ", task[0], "\t\t ", task[1], "\t\t", task[2],"\t\t\t  ",  status)
+    else:
+        print("\nThere task id don't match any task!\n")
 
 def viewAll():
     tasks=getAll()
@@ -80,7 +91,7 @@ def viewByDate():
     user_date=input("Enter deadline date limit YYYY-MM-DD: ")
     user_date=datetime.strptime(user_date, "%Y-%m-%d").date()
     if user_date < date.today():
-        print("\nDate must be greater than or equal to today!\n")
+        print("Date must be greater than or equal to today!")
         return
 
     tasks=getByDate(user_date)
@@ -91,5 +102,13 @@ def viewByDate():
             status="Completed" if status==0 else("In Progress" if status==1 else "Yet to")
             print("  ", task[0], "\t\t ", task[1], "\t\t", task[2],"\t\t\t  ",  status)
     else:
-        print("\nThere is no task in the specified date range!\n")
-    
+        print("\nThere is no task currently in the DB!\n")
+
+def removeTask():
+    id_ip=input("Enter the task id to delete: ")
+    confirm=input("Are you sure you want to delete the task ? (y/n)")
+    if confirm in ('y', 'Y'):
+        task=delOne(id_ip)
+        print("Task deleted successfully!")
+    else:
+        print("Delete operation cancelled!")
